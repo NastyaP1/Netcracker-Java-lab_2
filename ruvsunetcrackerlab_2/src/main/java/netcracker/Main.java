@@ -18,7 +18,6 @@ public class Main {
         Random rand = new Random();
 
         Exchanger<Customer> c = new Exchanger<Customer>();
-        Exchanger<Boolean> n = new Exchanger<Boolean>();
 
         CashBox cashbox = new CashBox();
 
@@ -26,9 +25,9 @@ public class Main {
         LinkedList<Customer> q2 = new LinkedList<Customer>();
         LinkedList<Customer> q3 = new LinkedList<Customer>();
 
-        Manager m1 = new Manager("Мэнэджер 1", cashbox, q1, c, n);
-        Manager m2 = new Manager("Мэнэджер 2", cashbox, q2, c, n);
-        Manager m3 = new Manager("Мэнэджер 3", cashbox, q3, c, n);
+        Manager m1 = new Manager("Мэнэджер 1", cashbox, q1, c);
+        Manager m2 = new Manager("Мэнэджер 2", cashbox, q2, c);
+        Manager m3 = new Manager("Мэнэджер 3", cashbox, q3, c);
 
         List<Manager> manList = new ArrayList<Manager>();
 
@@ -38,7 +37,7 @@ public class Main {
         manList.add(m2);
         manList.add(m3);
 
-        Thread t0 = new Thread(new ThreadCust(c, n));
+        Thread t0 = new Thread(new ThreadCust(c));
         t0.start();
 
         managers[0] = new Thread(m1);
@@ -93,9 +92,5 @@ public class Main {
             managers[1] = new Thread(m1);
             managers[i].start();
         }*/
-
-        //MainView menu = new MainView();
-        //menu.showMatrix();
-        //menu.Filter();
     }
 }

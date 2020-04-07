@@ -6,21 +6,16 @@ import java.util.concurrent.Exchanger;
 public class Manager implements Runnable {
     private Exchanger<Customer> exchanger;
     private Customer customer;
-
-    private Exchanger<Boolean> exchangerN;
-    private boolean toCreate = false;
     private boolean f = false;
     private String name;
     private CashBox cashbox;
     private LinkedList<Customer> customers;
-    private int i = 0;
 
-    Manager(String n, CashBox cb, LinkedList<Customer> custs, Exchanger<Customer> ex, Exchanger<Boolean> exN) {
+    Manager(String n, CashBox cb, LinkedList<Customer> custs, Exchanger<Customer> ex) {
         name = n;
         cashbox = cb;
         customers = custs;
         this.exchanger=ex;
-        this.exchangerN=exN;
     }
 
     public String getName(){
@@ -38,8 +33,6 @@ public class Manager implements Runnable {
     public void getExchange() throws InterruptedException {
         customer=exchanger.exchange(customer);
         if(customer != null){
-            toCreate = true;
-            exchangerN.exchange(toCreate);
             f = true;
             addInQueue(customer);
             System.out.println(customer.getName() + " добавлен в очередь к " + name);
